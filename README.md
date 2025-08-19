@@ -1,7 +1,7 @@
 
 # What
 
-A simple shell script to disply a random kitten. Also, an exmaple for packaging with Flox.
+A simple shell script to disply a random kitten. Also, an example for packaging with Flox.
 
 # Why? 
 
