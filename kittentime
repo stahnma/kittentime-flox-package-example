@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Show a random cat image via imgcat
+
+set -Eeuo pipefail
+
+# Create a temporary directory
+TMPDIR="$(mktemp -d 2>/dev/null || mktemp -d -t kitten)"
+trap 'rm -rf "$TMPDIR"' EXIT
+
+IMG="$TMPDIR/kitten.jpg"
+
+# Fetch random cat image using a valid 'type' param, fallback if needed
+curl -fsSL "https://cataas.com/cat?type=square" -o "$IMG" \
+  || curl -fsSL "https://cataas.com/cat?type=medium" -o "$IMG" \
+  || curl -fsSL "https://placecats.com/600/400" -o "$IMG"
+
+# Display cat. Meow.
+if command -v imgcat >/dev/null 2>&1; then
+  imgcat "$IMG"
+else
+  echo "imgcat not found—install it or run this in iTerm2." >&2
+  exit 1
+fi
